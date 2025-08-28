@@ -7,12 +7,12 @@
 ## Submódulos
 
 ### Frontend
-- Localizado na pasta `frontend/`.
+- Localizado na pasta `frontend/`. https://github.com/ricardoldequi/frontend-DairySense.git
 - É a **interface web** do projeto.
 - Permite visualizar dados coletados pelos colares, gráficos de atividade das vacas e gerenciamento do sistema.
 
 ### Backend
-- Localizado na pasta `backend/`.
+- Localizado na pasta `backend/`. https://github.com/ricardoldequi/backend-DairySense.git
 - É a **API e servidor** do projeto, desenvolvido em Rails.
 - Responsável por receber os dados dos sensores, armazenar no banco de dados PostgreSQL e disponibilizar endpoints para o frontend.
 
