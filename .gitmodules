@@ -1,0 +1,6 @@
+[submodule "backend-DairySense"]
+	path = backend-DairySense
+	url = git@github.com:ricardoldequi/backend-DairySense.git
+[submodule "frontend-DairySense"]
+	path = frontend-DairySense
+	url = git@github.com:ricardoldequi/frontend-DairySense.git
