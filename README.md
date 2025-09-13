@@ -26,7 +26,7 @@
 Para clonar corretamente o projeto com os submódulos, utilize:
 
 ```bash
-git clone --recurse-submodules https://github.com/seu-usuario/tcc-monitoramento-gado.git
+git clone --recurse-submodules https://github.com/ricardoldequi/DairySense.git
 ```
 Se você já clonou sem --recurse-submodules, pode inicializar os submódulos depois:
 
