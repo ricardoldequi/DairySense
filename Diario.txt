@@ -1,0 +1,17 @@
+12 de set 
+ - Iniciado pesquisa sobre locação do site, a principio será usado a DO, pela facilidade de implmentação, foram estudados hostinger e aws
+ - utilizando docker, uma maquina vai ficar com o banco, outra com o backend e frontend e nginx 
+ - estudar passar o dominio pela cloudfare 
+ - testes em ambiente local: foi decidido que irei preparar localmente o ambinete e testar tudo local antes de subir a aplicacao, para isso usarei o ngrock e vou por as estruturas em um docker pra facilitar a vida 
+
+ 13 de set
+ - iniciando configuracao do docker
+ - configurando o docker com o rails,tutorial desse cara ajudou muito https://www.youtube.com/watch?v=OfkMwWGEdZg
+ - pra executar o script do banco, depois de subir o docker:sudo docker exec -i postgres_db psql -U postgres -d Dados < ./backend-DairySense/db/Script/initial\ script.sql
+ - nginx ficou na porta 5000 pra não dar problemas com as configuracoes locais 
+config de acesso ao banco:
+Host: localhost
+Porta: 15433 
+Usuário: postgres
+Senha: DairySense2025
+Database: Dados
