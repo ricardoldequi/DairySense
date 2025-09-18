@@ -31,6 +31,8 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:DairySense2025@db:5432/Dados
       TZ: America/Sao_Paulo
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+
     volumes:
       - ./backend-DairySense:/app/backend
     ports:
