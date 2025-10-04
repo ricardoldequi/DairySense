@@ -15,3 +15,75 @@ Porta: 15433
 Usuário: postgres
 Senha: DairySense2025
 Database: Dados
+- dificuldades com o ngrok, precisa liberar ele no environment do rails pra que ele não bloqueie os acessos, também tem que habilitar a politica de cors para ficar ok
+
+ 16 de set
+ - criado e modificado alguns modelso com problemas, como animals e devices
+ - retomada dos testes, alguns problemas com o salvamento dos registros e envio para a api, a principio, só ficou pendente a parte  de envio 
+
+ 17 de set
+ - tive alguns problemas com a autenticacao jwt com o ambiente rodando no docker, foi necessário fazer um ajuste no .yml para pegar  a chave nos arquivos de credentials no rails, para testar se esta pegando a chave pra fazer o decode e encode certo rodei Rails.application.credentials.secret_key_base
+    environment:
+          RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+
+    deve se ter no arquivo .env dentro do mesmo nivel que o docker compose o conteudo deste arquivo eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.FvTB7j7Hz7QSbjS-9YPOsZhhj8GVkzfsIbQmJyWu1CY
+    para que a função de decode e encode do jwt funcione de acordo
+
+18 de set
+ - foi ajustado o readings_controller para que pegasse o device_id com base no api_key cadastrado no mesmo. com esse dado, e com base no start_date e end_date, é buscado na tabela device_animals qual o animal_id está vinculado ao colar naquele momento, para salvar na tabela readings 
+ - tive problemas com o formato UTC-3 do colar, tudo nele salva com o UTC Padrão. Foi ajustado para que os arquivos salvassem nas pastas de queue e deadletter com o NTP -3, e os campos de collected_at, updated_at e created_at foram tratados para ficar no UTC -3 na api
+ - criado MVC device_animals
+ - foram ajustados as variáveis no codigo do colar para deifinr os timeouts e tempo de envio 
+ - foi criado uma funcao para que ele envie os arquivos que ficam no deadletter quando reconhece uma nova conexão, assim pelo menos os arquvos não ficam parados no ambiente. Se enviados com sucesso, são removidos, se não, continam na pasta 
+
+
+
+19 de set
+- feito mais testes locais, agora validando a parte de conexão com a api, conexão sem fio, tempo de execução 
+
+20 a 25 de set
+- comprado peças novas para o colar
+- ajustes no projeto 3d para impressao e mandado imprimir
+- soldagem da bateria no novo colar 
+
+2 de out
+- descição de cenarios de testes e validações:
+dado que meu colar fique 20 horas sem conexão com a minha api, nem rede wi-fi
+quando armazenar os batches
+então nao deve sobrescrever os bathes já existenstes
+
+- dado que meu colar fique 20 horas sem conexão com a minha api, nem rede wi-fi
+quando encontrar um sinal de rede 
+e conseguir conectar com a api 
+então deve ser enviado todos os arquivos armazenados
+
+- tendo em vista que o colar demanda uma certa quantidade de bateria e que precisa ficar funcionando por um longo periodo de tempo, foram tomados algumas ações para otimização de bateria, dentre elas:
+1- aumentado o tempo de captura de dados do acelerometro, de 3s pra 10s (por enquanto)
+2- ajustado uma função para que ele permaneça em deep sleep das 21 horas as 3 horas da manhã
+3- aumentado o tamanho de batches de dados (reduzindo o numero de vezes que grava no sdcard)
+4- aumentado o tempo de tentativa de conexão com a rede para 20 minutos 
+5- desligado o modulo wi-fi das 8 as 15 da tarde (tempo que o rebanho fica no pasto)
+6- comprado uma bateria de 10000mah
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
