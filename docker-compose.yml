@@ -5,6 +5,18 @@ services:
     restart: always
     ports:
       - "6379:6379"
+
+  sidekiq:
+    build: ./backend-DairySense
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+      - backend
+    volumes:
+      - ./backend-DairySense:/app
+
   db:
     image: postgres:14
     container_name: postgres_db
