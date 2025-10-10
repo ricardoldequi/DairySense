@@ -65,7 +65,18 @@ então deve ser enviado todos os arquivos armazenados
 5- desligado o modulo wi-fi das 8 as 15 da tarde (tempo que o rebanho fica no pasto)
 6- comprado uma bateria de 10000mah
 
+8 de out
+ - Ajustadas rotas (/readings) e autenticação do /login (skip authorize).
+ - Revisado timezone: device em UTC, API usando Time.zone; NTP no dispositivo e timestamps ISO8601Z.
 
+9 de out
+ - Implementado cálculo de baseline (BaselineCalculator): ENMO, mediana por janela e MAD.
+ - Endpoints de ActivityBaselines: index/create e delete por período; validações (sem leituras e duplicidade de período).
+ - Adicionada coluna mad_enmo (decimal 10,6) e índices relacionados.
+
+10 de out
+ - Detecção de cio: CioDetector + CioDetectionJob com window, z-score e sustain_minutes; opção de exigir janelas contíguas.
+ - Criado Alert (modelo/controle/rotas) com dedupe e vínculo ao device_animal.
 
 
 
