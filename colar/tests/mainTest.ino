@@ -358,7 +358,7 @@ void loop() {
   bool podeSincronizar = true;
   if(getLocalTime(&timeinfo)) {
     int hourNow = timeinfo.tm_hour;
-    // se entre 11 e 18 horas, não sincroniza
+    // se entre 8 e 15 horas, não sincroniza
     if(hourNow >= 11 && hourNow < 18) podeSincronizar = false; 
   }
 // se fora do bloqueio e UPLOAD_INTERVAL_MS passou, tenta enviar
