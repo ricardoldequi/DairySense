@@ -1,0 +1,7 @@
+.env*
+!.env.example
+log/*
+tmp/*
+*.log
+*.pid
+*.pid.lock
