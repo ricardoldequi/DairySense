@@ -9,6 +9,16 @@
 #include "time.h"
 #include "esp_wifi.h"     
 
+
+// ==========================
+// ===== CERTIFICADO CA =====
+// ==========================
+static const char ROOT_CA[] PROGMEM = R"pem(
+-----BEGIN CERTIFICATE-----
+**COLE_AQUI_A_CA_COMPLETA**
+-----END CERTIFICATE-----
+)pem";
+
 // se = 1, desabilita sleep
 #define DISABLE_SLEEP 1
 
@@ -39,7 +49,7 @@ WifiCredential WIFI_LIST[] = {
 };
 
 // Constantes da API
-static const char* API_URL = "https://d8c95e4fdd43.ngrok-free.app/readings";
+static const char* API_URL = "https://dairysense.com.br/api/readings";
 static const char* API_KEY = "58567df6-233b-4607-971f-d80b6ca927a2";
 static const char* API_KEY_HEADER = "Authorization";
 
@@ -271,7 +281,12 @@ bool postFileToAPI(const String &path) {
   File f = SD.open(path, FILE_READ);
   if(!f) return false;
 
-  WiFiClientSecure client; client.setInsecure(); // ignora certificado  e desabilita validacao TLS, lembrar de ajustar para producao
+  WiFiClientSecure client; 
+  if (!client.setCACert(ROOT_CA)) { Serial.println("ERROR - Falha ao carregar certificado raiz!");
+    f.close();
+    return false;
+  }
+   // ignora certificado  e desabilita validacao TLS, lembrar de ajustar para producao
   HTTPClient http;
   if(!http.begin(client, API_URL)) { f.close(); http.end(); return false; }
 
@@ -381,5 +396,3 @@ void loop() {
   delay(sleepMs);
 #endif
 }
-
-

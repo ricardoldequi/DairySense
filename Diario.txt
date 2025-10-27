@@ -2,19 +2,19 @@
  - Iniciado pesquisa sobre locação do site, a principio será usado a DO, pela facilidade de implmentação, foram estudados hostinger e aws
  - utilizando docker, uma maquina vai ficar com o banco, outra com o backend e frontend e nginx 
  - estudar passar o dominio pela cloudfare 
- - testes em ambiente local: foi decidido que irei preparar localmente o ambinete e testar tudo local antes de subir a aplicacao, para isso usarei o ngrock e vou por as estruturas em um docker pra facilitar a vida 
+ - testes em ambiente local foi decidido que irei preparar localmente o ambinete e testar tudo local antes de subir a aplicacao, para isso usarei o ngrock e vou por as estruturas em um docker pra facilitar a vida 
 
  13 de set
  - iniciando configuracao do docker
- - configurando o docker com o rails,tutorial desse cara ajudou muito https://www.youtube.com/watch?v=OfkMwWGEdZg
- - pra executar o script do banco, depois de subir o docker:sudo docker exec -i postgres_db psql -U postgres -d Dados < ./backend-DairySense/db/Script/initial\ script.sql
+ - configurando o docker com o rails,tutorial desse cara ajudou muito https//www.youtube.com/watch?v=OfkMwWGEdZg
+ - pra executar o script do banco, depois de subir o dockersudo docker exec -i postgres_db psql -U postgres -d Dados < ./backend-DairySense/db/Script/initial\ script.sql
  - nginx ficou na porta 5000 pra não dar problemas com as configuracoes locais 
-config de acesso ao banco:
-Host: localhost
-Porta: 15433 
-Usuário: postgres
-Senha: DairySense2025
-Database: Dados
+config de acesso ao banco
+Host localhost
+Porta 15433 
+Usuário postgres
+Senha DairySense2025
+Database Dados
 - dificuldades com o ngrok, precisa liberar ele no environment do rails pra que ele não bloqueie os acessos, também tem que habilitar a politica de cors para ficar ok
 
  16 de set
@@ -23,7 +23,7 @@ Database: Dados
 
  17 de set
  - tive alguns problemas com a autenticacao jwt com o ambiente rodando no docker, foi necessário fazer um ajuste no .yml para pegar  a chave nos arquivos de credentials no rails, para testar se esta pegando a chave pra fazer o decode e encode certo rodei Rails.application.credentials.secret_key_base
-    environment:
+    environment
           RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
 
     deve se ter no arquivo .env dentro do mesmo nivel que o docker compose o conteudo deste arquivo eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.FvTB7j7Hz7QSbjS-9YPOsZhhj8GVkzfsIbQmJyWu1CY
@@ -47,7 +47,7 @@ Database: Dados
 - soldagem da bateria no novo colar 
 
 2 de out
-- descição de cenarios de testes e validações:
+- descição de cenarios de testes e validações
 dado que meu colar fique 20 horas sem conexão com a minha api, nem rede wi-fi
 quando armazenar os batches
 então nao deve sobrescrever os bathes já existenstes
@@ -57,7 +57,7 @@ quando encontrar um sinal de rede
 e conseguir conectar com a api 
 então deve ser enviado todos os arquivos armazenados
 
-- tendo em vista que o colar demanda uma certa quantidade de bateria e que precisa ficar funcionando por um longo periodo de tempo, foram tomados algumas ações para otimização de bateria, dentre elas:
+- tendo em vista que o colar demanda uma certa quantidade de bateria e que precisa ficar funcionando por um longo periodo de tempo, foram tomados algumas ações para otimização de bateria, dentre elas
 1- aumentado o tempo de captura de dados do acelerometro, de 3s pra 10s (por enquanto)
 2- ajustado uma função para que ele permaneça em deep sleep das 21 horas as 3 horas da manhã
 3- aumentado o tamanho de batches de dados (reduzindo o numero de vezes que grava no sdcard)
@@ -67,27 +67,28 @@ então deve ser enviado todos os arquivos armazenados
 
 8 de out
  - Ajustadas rotas (/readings) e autenticação do /login (skip authorize).
- - Revisado timezone: device em UTC, API usando Time.zone; NTP no dispositivo e timestamps ISO8601Z.
+ - Revisado timezone device em UTC, API usando Time.zone; NTP no dispositivo e timestamps ISO8601Z.
 
 9 de out
- - Implementado cálculo de baseline (BaselineCalculator): ENMO, mediana por janela e MAD.
- - Endpoints de ActivityBaselines: index/create e delete por período; validações (sem leituras e duplicidade de período).
+ - Implementado cálculo de baseline (BaselineCalculator) ENMO, mediana por janela e MAD.
+ - Endpoints de ActivityBaselines index/create e delete por período; validações (sem leituras e duplicidade de período).
  - Adicionada coluna mad_enmo (decimal 10,6) e índices relacionados.
 
 10 de out
- - Detecção de cio: CioDetector + CioDetectionJob com window, z-score e sustain_minutes; opção de exigir janelas contíguas.
+ - Detecção de cio CioDetector + CioDetectionJob com window, z-score e sustain_minutes; opção de exigir janelas contíguas.
  - Criado Alert (modelo/controle/rotas) com dedupe e vínculo ao device_animal.
 
+13 de out
+ - Sidekiq configurado (Redis, sidekiq.yml, fila dedicada detectors) e carregado via docker-compose (redis, db, backend, sidekiq, nginx); 
+ - UI do Sidekiq montada em /sidekiq com auth básica; habilitada sessão no Rails API para resolver CSRF/ RackSession; corrigidos erros de inicialização.
+ - CioDetectionJob adaptado para SidekiqJob na fila detectors; suporte a args hash; agendamento recorrente via sidekiq-cron (config/schedule.yml) e aba “Cron” habilitada.
+ - ReadingsController adicionados GET (filtros por animal/device/período) e DELETE (por id e em lote por período).
+ -  deploy em produção será feito  com 1 domínio e roteamento por caminho (/api e /sidekiq) via Nginx;
 
+24 de out
 
-
-
-
-
-
-
-
-
+- subi a infra para cloud, apanhei bastante com os certificados, usei i certbot pra gerar os certificados
+- o arduino também precisa de certificado para funcionar, foi gerado a partir do openssl com 3 meses de duracao, será nesesário trocar isso mais pra frente
 
 
 
