@@ -21,16 +21,15 @@ services:
     deploy:
       replicas: ${DB_REPLICAS:-1} 
 
-  # frontend:
-  #   build: ./frontend-DayriSense
-  #   container_name: react_app
-  #   depends_on:
-  #     - backend
-  #   volumes:
-  #     - ./frontend:/app
-  #   ports:
-  #     - "8080:3000"
-  #   command: ["npm", "start"]
+  frontend:
+    build: ./frontend-DairySense
+    container_name: react_frontend
+    depends_on:
+      - backend
+    restart: always
+    ports:
+      - "8080:80"
+
   backend:
     build: ./backend-DairySense
     container_name: rails_api

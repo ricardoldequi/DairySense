@@ -51,7 +51,7 @@ WifiCredential WIFI_LIST[] = {
 // Constantes da API
 static const char* API_URL = "https://dairysense.com.br/api/readings";
 static const char* API_KEY = "58567df6-233b-4607-971f-d80b6ca927a2";
-static const char* API_KEY_HEADER = "Authorization";
+static const char* API_KEY_HEADER = "X-API-Key"; 
 
 //pinos Cs do SD
 #define SD_CS_PIN 21
@@ -396,3 +396,4 @@ void loop() {
   delay(sleepMs);
 #endif
 }
+
