@@ -21,14 +21,6 @@ services:
     deploy:
       replicas: ${DB_REPLICAS:-1} 
 
-  frontend:
-    build: ./frontend-DairySense
-    container_name: react_frontend
-    depends_on:
-      - backend
-    restart: always
-    ports:
-      - "8080:80"
 
   backend:
     build: ./backend-DairySense

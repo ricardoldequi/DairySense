@@ -1,7 +1,54 @@
+# Environment files
 .env*
 !.env.example
-log/*
-tmp/*
+
+# Logs
 *.log
-*.pid
-*.pid.lock
+npm-debug.log*
+
+# Dependencies
+node_modules/
+/backend-DairySense/.bundle
+/backend-DairySense/vendor/bundle/
+
+# Database and storage
+/data/
+*.sqlite3
+/backend-DairySense/storage/*
+!/backend-DairySense/storage/.keep
+/backend-DairySense/tmp/storage/*
+!/backend-DairySense/tmp/storage/
+!/backend-DairySense/tmp/storage/.keep
+
+# Rails specific
+/backend-DairySense/log/*
+/backend-DairySense/tmp/*
+!/backend-DairySense/log/.keep
+!/backend-DairySense/tmp/.keep
+/backend-DairySense/tmp/pids/*
+!/backend-DairySense/tmp/pids/
+!/backend-DairySense/tmp/pids/.keep
+/backend-DairySense/config/master.key
+/backend-DairySense/config/credentials.yml.enc
+/backend-DairySense/config/credentials/production.key
+/backend-DairySense/public/assets
+
+# Frontend build
+/frontend-DairySense/dist/
+/frontend-DairySense/build/
+/frontend-DairySense/node_modules/
+
+# Docker
+.docker/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests (conforme seu .gitignore)
+/backend-DairySense/test/controllers/device_animals_controller_test.rb
+/backend-DairySense/test/controllers/users_controller_test.rb
