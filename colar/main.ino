@@ -92,7 +92,7 @@ static const char* API_KEY_HEADER = "Authorization";
 
 static const char ROOT_CA[] PROGMEM = R"PEM(
 -----BEGIN CERTIFICATE-----
-[CERTIFICADO_CA_COMPLETO]
+MIIF...COLE_AQUI_A_CA_COMPLETA...Q==
 -----END CERTIFICATE-----
 )PEM";
 

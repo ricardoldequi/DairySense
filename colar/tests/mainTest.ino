@@ -15,7 +15,7 @@
 // ==========================
 static const char ROOT_CA[] PROGMEM = R"pem(
 -----BEGIN CERTIFICATE-----
-[CERTIFICADO_CA_AQUI]
+**COLE_AQUI_A_CA_COMPLETA**
 -----END CERTIFICATE-----
 )pem";
 
@@ -286,7 +286,7 @@ bool postFileToAPI(const String &path) {
     f.close();
     return false;
   }
-   // Desabilita validação TLS
+   // ignora certificado  e desabilita validacao TLS, lembrar de ajustar para producao
   HTTPClient http;
   if(!http.begin(client, API_URL)) { f.close(); http.end(); return false; }
 
